@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#11120f" />
+  <title>Transcribe</title>
+  <link rel="stylesheet" href="/assets/app.css" />
+</head>
+<body>
+  <main class="app-shell" id="top">
+    <section class="workspace" aria-label="Transcription">
+      <div class="media-area">
+        <input id="fileInput" type="file" accept=".wav,.flac,.mp3,.m4a,.aac,.ogg,.opus,.wma,.mp4,.mov,.mkv,.webm,.avi,.m4v,.mpeg,.mpg,audio/*,video/*" hidden />
+        <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Choose or drop an audio or video file">
+          <svg class="upload-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7.5 7.5M12 3l4.5 4.5M4 15.5v3A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5v-3"/></svg>
+          <span class="drop-title" id="dropTitle">Choose media</span>
+          <span class="drop-subtitle">Drop a file here or <button id="browseButton" class="text-button" type="button">browse</button></span>
+        </div>
+        <div id="selectedFile" class="selected-file hidden">
+          <div class="file-symbol" aria-hidden="true">♫</div>
+          <div class="file-details"><strong id="fileName">Media file</strong><span id="fileMeta">Ready</span></div>
+          <button id="removeFile" class="icon-button" type="button" aria-label="Remove file" title="Remove file">×</button>
+        </div>
+        <div id="uploadStatus" class="upload-status hidden" aria-label="Copying file"><div class="upload-track"><i id="uploadBar"></i></div><span id="uploadLabel" class="visually-hidden">Uploading</span><span id="uploadPercent" class="visually-hidden">0%</span></div>
+      </div>
+
+      <div class="settings-area">
+        <div class="setting-label">CAPTION LENGTH</div>
+        <div class="caption-options" role="group" aria-label="Words per caption">
+          <button type="button" class="caption-option active" data-mode="2" aria-pressed="true">2</button>
+          <button type="button" class="caption-option" data-mode="3" aria-pressed="false">3</button>
+          <button type="button" class="caption-option" data-mode="4" aria-pressed="false">4</button>
+          <button type="button" class="caption-option sentence-option" data-mode="sentence" aria-pressed="false">Full sentence</button>
+        </div>
+        <button id="startButton" class="primary-button" type="button" disabled>Transcribe</button>
+      </div>
+    </section>
+
+    <section id="runPanel" class="run-panel hidden" aria-live="polite">
+      <span id="runTitle" class="visually-hidden">Transcribing</span>
+      <div class="progress-line" role="progressbar" aria-label="Transcription progress" aria-valuemin="0" aria-valuemax="100"><div id="progressBar" class="progress-fill"></div></div>
+      <div class="run-bottom"><span id="stageText">Preparing</span><div class="run-actions"><time id="elapsed">00:00</time><button id="cancelButton" class="text-button cancel-button" type="button">Cancel</button></div></div>
+      <div id="errorPanel" class="error-panel hidden"></div>
+      <div id="resultPanel" class="result-panel hidden">
+        <div class="result-copy"><strong>SRT ready</strong><span id="resultMeta">Captions saved</span></div>
+        <a id="downloadButton" class="download-button" href="/api/download">Download SRT</a>
+      </div>
+      <button id="againButton" class="again-button hidden" type="button">Choose another file</button>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
